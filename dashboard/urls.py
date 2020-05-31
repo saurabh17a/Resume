@@ -1,0 +1,43 @@
+from django.urls import path
+from dashboard import views
+
+app_name = "dashboard"
+
+urlpatterns = [
+    path('resume/', views.create_info, name='create_info'),
+    path('resume/<int:id>/add_details', views.add_details, name='add_details'),
+    path('resume/<int:id>/list_experience/', views.list_experience, name='list_experience'),
+    path('resume/<int:id>/experience/', views.create_experience, name='create_experience'),
+    path('update/experience/<int:id>', views.update_experience, name='update_experience'),
+    path('delete/experience/<int:id>', views.delete_experience, name='delete_experience'),
+    path('resume/<int:id>/list_education/', views.list_education, name='list_education'),
+    path('resume/<int:id>/education/', views.create_education, name='create_education'),
+    path('update/education/<int:id>', views.update_education, name='update_education'),
+    path('delete/education/<int:id>', views.delete_education, name='delete_education'),
+    path('resume/<int:id>/list_skill/', views.list_skill, name='list_skill'),
+    path('resume/<int:id>/skills/', views.create_skills, name='create_skills'),
+    path('update/skill/<int:id>', views.update_skill, name='update_skill'),
+    path('delete/skill/<int:id>', views.delete_skill, name='delete_skill'),
+    path('resume/<int:id>/list_workflow/', views.list_workflow, name='list_workflow'),
+    path('resume/<int:id>/workflow/', views.create_workflow, name='create_workflow'),
+    path('update/workflow/<int:id>', views.update_workflow, name='update_workflow'),
+    path('delete/workflow/<int:id>', views.delete_workflow, name='delete_workflow'),
+    path('resume/<int:id>/list_project/', views.list_project, name='list_project'),
+    path('resume/<int:id>/project/', views.create_projects, name='create_projects'),
+    path('update/project/<int:id>', views.update_project, name='update_project'),
+    path('delete/project/<int:id>', views.delete_project, name='delete_project'),
+    path('resume/<int:id>/list_certificate/', views.list_certificate, name='list_certificate'),
+    path('resume/<int:id>/certificate/', views.create_certificates, name='create_certificates'),
+    path('update/certificate/<int:id>', views.update_certificate, name='update_certificate'),
+    path('delete/certificate/<int:id>', views.delete_certificate, name='delete_certificate'),
+    path('resume/<int:id>/list_interest/', views.list_interest, name='list_interest'),
+    path('resume/<int:id>/interest/', views.create_interests, name='create_interests'),
+    path('update/interest/<int:id>', views.update_interest, name='update_interest'),
+    path('delete/interest/<int:id>', views.delete_interest, name='delete_interest'),
+    path('all_resume', views.all_resume, name='all_resume'),
+    path('all_resume/<int:id>', views.delete_resume, name='delete_resume'),
+    path('viewresume/<int:id>', views.user_resume, name='user_resume'),
+    path('updateresume/<int:id>', views.update_details, name='update_details'),
+    path('searchresume/', views.search_resume, name='search_resume'),
+    path('resume/<int:id>/download', views.GeneratePDF.as_view(), name='generatepdf'),
+]

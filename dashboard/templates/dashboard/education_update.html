@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block nav-item %}
+<li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'dashboard:create_info' %}">Create Resume</a></li>
+<li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'dashboard:all_resume' %}">All Resume</a></li>
+<li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'accounts:logout_view' %}">Logout</a></li>
+{% endblock %}
+{% block content %}
+<div class="col-sm-offset-2 center" style="padding-left:6rem;">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form add_user_education %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary" method="post" >Save Changes</button>
+        {% endbuttons %}
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block nav-image %}
+<a class="navbar-brand js-scroll-trigger"><span class="d-block d-lg-none">Resume-{{user_data.first_name}}</span><span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="{{ user_data.image.url }}" alt="" /></span></a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+{% endblock %}
+{% block nav-item %}
+<li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'dashboard:create_info' %}">Create Resume</a></li>
+<li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'dashboard:all_resume' %}">All Resume</a></li>
+<li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'accounts:logout_view' %}">Logout</a></li>
+{% endblock %}
+{% block content %}
+<div style="width:30rem; margin-left:10rem;">
+<div class="card" style="margin-top:12px">
+  <div class="card-header">
+    About User
+  </div>
+  <div class="card-body">
+    <a  class="btn btn-sm btn-success pull-right" method="post" href="{% url 'dashboard:update_details' user_data_id %}">Update about</a>
+  </div>
+</div>
+<div class="card" style="margin-top:12px">
+  <div class="card-header">
+    Experience
+  </div>
+  <div class="card-body">
+    <a  class="btn btn-sm btn-success pull-right" method="post" href="{% url 'dashboard:create_experience' user_data_id %}">Add Experience</a>
+    <a  class="btn btn-sm btn-success pull-right" method="post" href="{% url 'dashboard:list_experience' user_data_id %}">View Experience</a>
+  </div>
+</div>
+<div class="card" style="margin-top:12px">
+  <div class="card-header">
+    Education
+  </div>
+  <div class="card-body">
+    <a  class="btn btn-sm btn-success pull-right" method="post" href="{% url 'dashboard:create_education' user_data_id %}">Add Education</a>
+    <a  class="btn btn-sm btn-success pull-right" method="post" href="{% url 'dashboard:list_education' user_data_id %}">View Education</a>
+  </div>
+</div>            
+<div class="card" style="margin-top:12px">
+  <div class="card-header">
+    Skills
+  </div>
+  <div class="card-body">
+    <a  class="btn btn-sm btn-success pull-right" method="post" href="{% url 'dashboard:create_skills' user_data_id %}">Add Skills</a>
+      <a  class="btn btn-sm btn-success pull-right" method="post" href="{% url 'dashboard:list_skill' user_data_id %}">View Skills</a>
+  </div>
+</div>      
+<div class="card" style="margin-top:12px">
+  <div class="card-header">
+    Workflow
+  </div>
+  <div class="card-body">
+<a  class="btn btn-sm btn-success pull-right" method="post" href="{% url 'dashboard:create_workflow' user_data_id %}">Add Workflow</a>
+<a  class="btn btn-sm btn-success pull-right" method="post" href="{% url 'dashboard:list_workflow' user_data_id %}">View Workflow</a>
+  </div>
+</div>
+<div class="card" style="margin-top:12px">
+  <div class="card-header">
+    Certificates
+  </div>
+  <div class="card-body">
+<a  class="btn btn-sm btn-success pull-right" method="post" href="{% url 'dashboard:create_certificates' user_data_id %}">Add Certificates</a>
+<a  class="btn btn-sm btn-success pull-right" method="post" href="{% url 'dashboard:list_certificate' user_data_id %}">View Certificates</a></div>
+</div>
+<div class="card" style="margin-top:12px">
+  <div class="card-header">
+    Project
+  </div>
+  <div class="card-body">
+<a  class="btn btn-sm btn-success pull-right" method="post" href="{% url 'dashboard:create_projects' user_data_id %}">Add Projects</a>
+<a  class="btn btn-sm btn-success pull-right" method="post" href="{% url 'dashboard:list_project' user_data_id %}">View Projects</a>
+</div>
+</div>
+<div class="card" style="margin-top:12px">
+  <div class="card-header">
+    Interest
+  </div>
+  <div class="card-body">
+<a  class="btn btn-sm btn-success pull-right" method="post" href="{% url 'dashboard:create_interests' user_data_id %}">Add Interests</a>
+<a  class="btn btn-sm btn-success pull-right" method="post" href="{% url 'dashboard:list_interest' user_data_id %}">View Interest</a>
+</div>
+</div>      
+            
+            
+{% endblock %}

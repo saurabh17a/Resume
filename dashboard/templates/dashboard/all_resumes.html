@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block nav-image %}
+<h4>{{user.user_types}}</h4>
+{% endblock %}
+{% block nav-item %}
+<li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'dashboard:search_resume' %}">Search Resume</a></li>
+<li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'dashboard:all_resume' %}">All Resume</a></li>
+<li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'accounts:logout_view' %}">Logout</a></li>
+{% endblock %}
+{% block content %}
+{% if user.user_types == 'Recruiter'%}
+    {% for user in user_data %}
+        <div class="card" style="width: 60rem; margin-top:15px; margin-left:3rem">
+            <div class="card-body">
+                <h4 class="card-title">{{ user.first_name }}</h4>
+                <h6 class="card-title">{{ user.about_you|slice:":50" }}</h6>
+            <div>
+            <a class="btn btn-outline-primary "  target="_blank" href="{% url 'dashboard:user_resume' user.id %}">View resume</a>
+            <a class="btn btn-outline-success "  target="_blank" href="{% url 'dashboard:generatepdf' user.id %}">Download resume</a>
+            </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}

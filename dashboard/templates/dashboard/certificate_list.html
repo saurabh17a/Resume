@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block nav-item %}
+<li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'dashboard:create_info' %}">Create Resume</a></li>
+<li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'dashboard:all_resume' %}">All Resume</a></li>
+<li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'accounts:logout_view' %}">Logout</a></li>
+{% endblock %}
+{% block content %}
+    {% for certificate in certificates %}
+        <div class="card" style="width: 60rem; margin-top:15px; margin-left:3rem">
+            <div class="card-body">
+                <h5 class="card-title">{{ certificate.certificates }}</h5>
+            <div>
+            <a class="btn btn-sm btn-info " href="{% url 'dashboard:update_certificate' certificate.id %}">Update certificate</a>
+            <a class="btn btn-sm btn-danger" style="float:right;" href="{% url 'dashboard:delete_certificate' certificate.id %}">Delete certificate</a>
+            </div>
+            </div>
+        </div>
+    {% endfor %}
+    <br>
+    <div class="text-center">
+    <a class="btn btn-sm btn-info" href="{% url 'dashboard:create_certificates' user_data.id %}">Add certificate</a>
+    </div>
+{% endblock %}

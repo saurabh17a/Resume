@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block nav-item %}
+<ul class="navbar-nav">
+<li class="nav-item"><a class="nav-link" href="{% url 'accounts:signup_view' %}">Signup</a></li>
+</ul>
+{% endblock %}
+{% block content %}
+<div class="col-sm-offset-2 center" style="padding-left:6rem;">
+<h1>Log in</h1>
+<form class="site-form" action="{% url 'accounts:login_view' %}" method="post" style="width:20rem">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+            {% if request.GET.next %}
+        <input type="hidden" name="next" value= "{{ request.GET.next }}"/>
+        {% endif %}
+
+        {% buttons %}
+        <input type="submit" value="Login">
+        {% endbuttons %}
+</form>
+</div>
+{% endblock %}

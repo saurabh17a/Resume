@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% block nav-item %}
+
+{% endblock %}
+    {% for interest in interests %}
+        <div class="card" style="width: 60rem; margin-top:15px; margin-left:3rem">
+            <div class="card-body">
+                <h5 class="card-title">{{ interest.interest }}</h5>
+            <div>
+            <a class="btn btn-sm btn-info " href="{% url 'dashboard:update_interest' interest.id %}">Update interest</a>
+            <a class="btn btn-sm btn-danger" style="float:right;" href="{% url 'dashboard:delete_interest' interest.id %}">Delete interest</a>
+            </div>
+            </div>
+        </div>
+    {% endfor %}
+        <br>
+    <div class="text-center">
+    <a class="btn btn-sm btn-info" href="{% url 'dashboard:create_interests' user_data.id %}">Add interest</a>
+    </div>
+{% endblock %}

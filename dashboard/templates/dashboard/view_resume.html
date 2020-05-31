@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block nav-image %}
+<a class="navbar-brand js-scroll-trigger"
+                ><span class="d-block d-lg-none">Resume-{{data.first_name}}</span><span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="{{ data.image.url }}" alt="" /></span></a
+            ><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+{% endblock %}
+{% block content %}
+            <!-- About-->
+            <section class="resume-section" id="about">
+                <div class="resume-section-content">
+                    <h1 class="mb-0">{{data.first_name}} <span class="text-primary">{{data.last_name}}</span></h1>
+                    <div class="subheading mb-5">{{data.address}} · {{data.phone_no}} · <a href="mailto:{{data.email}}">{{data.email}}</a></div>
+                    <p class="lead mb-5">{{data.about_you}}</p>
+                    <div class="social-icons">
+                        <a class="social-icon" href="https://linkedin.com/{{data.linkedin}}"><i class="fab fa-linkedin-in"></i></a><a class="social-icon" href="https://github.com/{{data.github}}"><i class="fab fa-github"></i></a><a class="social-icon" href="https://twitter.com/{{data.twitter}}"><i class="fab fa-twitter"></i></a><a class="social-icon" href="https://facebook.com/{{data.facebook}}"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </section>            <hr class="m-0" />
+            <!-- Experience-->
+            <section class="resume-section" id="experience">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Experience</h2>
+                    {% for exp in experience %}
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">{{exp.position}}</h3>
+                            <div class="subheading mb-3">{{exp.name}}</div>
+                            <p>{{exp.description}}</p>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">{{exp.joined_at}} - {{exp.worked_till}}</span></div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Education-->
+            <section class="resume-section" id="education">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Education</h2>
+                    {% for edu in education %}
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">{{edu.university}}</h3>
+                            <div class="subheading mb-3">{{edu.course}}</div>
+                            <p>{{edu.cgpa}}</p>
+                        </div>
+                        <div class="flex-shrink-0"><span class="text-primary">{{edu.joined_at}} - {{edu.left_at}}</span></div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Skills-->
+            <section class="resume-section" id="skills">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Skills</h2>
+                    <div class="subheading mb-3">Programming Languages & Tools</div>
+                    <ul class="list-inline dev-icons">
+                        {% for skill in skills %}
+                        <li class="list-inline-item"><i class="fab fa-{{skill.skill}}"></i></li>
+                        {% endfor %}
+                    </ul>
+                    <div class="subheading mb-3">Workflow</div>
+                    <ul class="fa-ul mb-0">
+                    {% for work in workflow %}
+                        <li>
+                            <span class="fa-li"><i class="fas fa-check"></i></span>{{work.workflow}}
+                        </li>
+                    {% endfor %}
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Interests-->
+            <section class="resume-section" id="interests">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Interests</h2>
+                    {% for interests in interest %}
+                    <p>{{interests.interest}}</p>
+                    {%endfor%}
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Awards-->
+            <section class="resume-section" id="awards">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Certifications</h2>
+                    <ul class="fa-ul mb-0">
+                    {% for awards in award %}
+                        <li>
+                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>{{awards.certificates}}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </section>
+            <!-- Awards-->
+            <section class="resume-section" id="projects">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Projects</h2>
+                    <ul class="fa-ul mb-0">
+                    {% for projects in project %}
+                        <li>
+                        <h3 class="mb-0">{{projects.project_name}}</h3>
+                        </li>
+                        <li>
+                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>{{projects.project_description}}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </section>
+{% endblock %}

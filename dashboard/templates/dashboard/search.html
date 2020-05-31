@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block nav-image %}
+
+{% endblock %}
+{% block nav-item %}<li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'dashboard:search_resume' %}">Search Resume</a></li>
+<li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'dashboard:all_resume' %}">All Resume</a></li>
+<li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'accounts:logout_view' %}">Logout</a></li>
+{% endblock %}
+{% block content %}
+{% if user.user_types == 'Recruiter'%}
+              <form action="{% url 'dashboard:search_resume' %}" method="post">
+                {% csrf_token %}
+                <h2 class="heading">Resume Filter</h2>
+                <div class="probootstrap-field-group">
+                  <div class="probootstrap-fields">
+                        <div class="form-group">
+                            <label>Skill</label>
+                            <input type="text" class="form-control" name="skill" placeholder="Skill" required="true">
+                        </div>
+                        <div class="form-group">
+                            <label>Experience</label>
+                            <input type="number" min="0" class="form-control" name="exp" placeholder="Experience" required="true">
+                        </div>                  
+                  </div>
+                  <div class=text-center>
+                  <button class="btn btn-success" type="submit">Search</button>
+                </div>
+                </div>
+              </form>
+
+{% endif %}
+{% endblock %}
