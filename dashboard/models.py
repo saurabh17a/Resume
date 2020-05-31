@@ -16,8 +16,7 @@ class UserData(models.Model):
     address = models.TextField(blank=False)
     total_working_experience = models.PositiveIntegerField(
         default=0, help_text='Total working experience')
-    phone_no = PhoneField(
-        blank=False, help_text='Mobile number')
+    phone_no = PhoneField(blank=True, help_text='Contact phone number')
     email = models.EmailField(
         blank=False, help_text='Email address')
     about_you = models.TextField(

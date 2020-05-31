@@ -1,12 +1,24 @@
 {% extends 'base.html' %}
+
 {% load static %}
+
 {% load bootstrap4 %}
+{% block nav-image %}
+{% endblock %}
 {% block nav-item %}
 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'dashboard:create_info' %}">Create Resume</a></li>
 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'dashboard:all_resume' %}">All Resume</a></li>
 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'accounts:logout_view' %}">Logout</a></li>
 {% endblock %}
 {% block content %}
+<style>
+.phone-field-ext {
+    display: none;
+    }
+input#id_phone_no_1 {
+    display: none;
+}
+</style>
 <div class="col-sm-offset-4 center" style="padding-left:10rem; width:30rem">
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}

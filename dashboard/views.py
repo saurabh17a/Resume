@@ -17,8 +17,8 @@ from dashboard.utils import render_to_pdf
 
 def user_resume(request, id):
     data = UserData.objects.get(id=id)
-    experience = Experience.objects.filter(user_experience=data).all()
-    education = Education.objects.filter(user_education=data).all()
+    experience = Experience.objects.filter(user_experience=data).all().order_by('-worked_till')
+    education = Education.objects.filter(user_education=data).all().order_by('-left_at')
     skills = Skills.objects.filter(user_skills=data).all()
     workflow = Workflow.objects.filter(user_workflow=data).all()
     interest = Interest.objects.filter(user_interest=data).all()
@@ -70,11 +70,14 @@ def update_details(request, id=None):
             if add_user_details.is_valid():
                 user_exp = add_user_details.save(commit=False)
                 user_exp.user = user_data
-                user_exp.image = request.FILES.get('image')
+                if request.FILES.get('image'):
+                    user_exp.image = request.FILES.get('image')
+                else:
+                    user_exp.image = obj_details.image
                 user_exp.save()
                 return redirect('dashboard:all_resume')
 
-        context = {'add_user_details': add_user_details}
+        context = {'add_user_details': add_user_details, 'user_data': obj_details}
         return render(request, 'dashboard/details_update.html', context=context)
     else:
         return redirect('dashboard:all_resume')
@@ -170,7 +173,7 @@ def update_experience(request, id=None):
                 user_exp.save()
                 return redirect('dashboard:list_experience', id=user_data.id)
 
-        context = {'add_user_experience': add_user_experience}
+        context = {'add_user_experience': add_user_experience, 'user_data': user_data}
         return render(request, 'dashboard/experience_update.html', context=context)
     else:
         return redirect('dashboard:all_resume')
@@ -200,7 +203,7 @@ def create_education(request, id):
                 return redirect('dashboard:add_details', id=user_data.id)
         else:
             add_user_education = EducationForm()
-        context = {'add_user_education': add_user_education}
+        context = {'add_user_education': add_user_education, 'user_data': user_data}
         return render(request, 'dashboard/education.html', context=context)
     else:
         return redirect('dashboard:all_resume')
@@ -234,7 +237,7 @@ def update_education(request, id=None):
                 user_exp.save()
                 return redirect('dashboard:list_education', id=user_data.id)
 
-        context = {'add_user_education': add_user_education}
+        context = {'add_user_education': add_user_education, 'user_data': user_data}
         return render(request, 'dashboard/education_update.html', context=context)
     else:
         return redirect('dashboard:all_resume')
@@ -264,7 +267,7 @@ def create_skills(request, id):
                 return redirect('dashboard:add_details', id=user_data.id)
         else:
             add_user_skills = SkillsForm()
-        context = {'add_user_skills': add_user_skills}
+        context = {'add_user_skills': add_user_skills, 'user_data': user_data}
         return render(request, 'dashboard/skills.html', context=context)
     else:
         return redirect('dashboard:all_resume')
@@ -298,7 +301,7 @@ def update_skill(request, id=None):
                 user_exp.save()
                 return redirect('dashboard:list_skill', id=user_data.id)
 
-        context = {'add_user_skill': add_user_skill}
+        context = {'add_user_skill': add_user_skill, 'user_data': user_data}
         return render(request, 'dashboard/skill_update.html', context=context)
     else:
         return redirect('dashboard:all_resume')
@@ -328,7 +331,7 @@ def create_workflow(request, id):
                 return redirect('dashboard:add_details', id=user_data.id)
         else:
             add_user_workflow = WorkflowForm()
-        context = {'add_user_workflow': add_user_workflow}
+        context = {'add_user_workflow': add_user_workflow, 'user_data': user_data}
         return render(request, 'dashboard/workflow.html', context=context)
     else:
         return redirect('dashboard:all_resume')
@@ -362,7 +365,7 @@ def update_workflow(request, id=None):
                 user_exp.save()
                 return redirect('dashboard:list_workflow', id=user_data.id)
 
-        context = {'add_user_workflow': add_user_workflow}
+        context = {'add_user_workflow': add_user_workflow, 'user_data': user_data}
         return render(request, 'dashboard/workflow_update.html', context=context)
     else:
         return redirect('dashboard:all_resume')
@@ -392,7 +395,7 @@ def create_certificates(request, id):
                 return redirect('dashboard:add_details', id=user_data.id)
         else:
             add_user_certificates = CertificateForm()
-        context = {'add_user_certificates': add_user_certificates}
+        context = {'add_user_certificates': add_user_certificates, 'user_data': user_data}
         return render(request, 'dashboard/certificates.html', context=context)
     else:
         return redirect('dashboard:all_resume')
@@ -426,7 +429,7 @@ def update_certificate(request, id=None):
                 user_exp.save()
                 return redirect('dashboard:list_certificate', id=user_data.id)
 
-        context = {'add_user_certificate': add_user_certificate}
+        context = {'add_user_certificate': add_user_certificate, 'user_data': user_data}
         return render(request, 'dashboard/certificate_update.html', context=context)
     else:
         return redirect('dashboard:all_resume')
@@ -456,7 +459,7 @@ def create_projects(request, id):
                 return redirect('dashboard:add_details', id=user_data.id)
         else:
             add_user_projects = ProjectsForm()
-        context = {'add_user_projects': add_user_projects}
+        context = {'add_user_projects': add_user_projects, 'user_data': user_data}
         return render(request, 'dashboard/projects.html', context=context)
     else:
         return redirect('dashboard:all_resume')
@@ -490,7 +493,7 @@ def update_project(request, id=None):
                 user_exp.save()
                 return redirect('dashboard:list_project', id=user_data.id)
 
-        context = {'add_user_project': add_user_project}
+        context = {'add_user_project': add_user_project, 'user_data': user_data}
         return render(request, 'dashboard/project_update.html', context=context)
     else:
         return redirect('dashboard:all_resume')
@@ -520,7 +523,7 @@ def create_interests(request, id):
                 return redirect('dashboard:add_details', id=user_data.id)
         else:
             add_user_interests = InterestForm()
-        context = {'add_user_interests': add_user_interests}
+        context = {'add_user_interests': add_user_interests, 'user_data': user_data}
         return render(request, 'dashboard/interests.html', context=context)
     else:
         return redirect('dashboard:all_resume')
@@ -554,7 +557,7 @@ def update_interest(request, id=None):
                 user_exp.save()
                 return redirect('dashboard:list_interest', id=user_data.id)
 
-        context = {'add_user_interest': add_user_interest}
+        context = {'add_user_interest': add_user_interest, 'user_data': user_data}
         return render(request, 'dashboard/interest_update.html', context=context)
     else:
         return redirect('dashboard:all_resume')
@@ -574,8 +577,8 @@ def delete_interest(request, id=None):
 class GeneratePDF(View):
     def get(self, request, *args, **kwargs):
         data = UserData.objects.get(id=self.kwargs['id'])
-        experience = Experience.objects.filter(user_experience=data).all()
-        education = Education.objects.filter(user_education=data).all()
+        experience = Experience.objects.filter(user_experience=data).all().order_by('-worked_till')
+        education = Education.objects.filter(user_education=data).all().order_by('-left_at')
         skills = Skills.objects.filter(user_skills=data).all()
         workflow = Workflow.objects.filter(user_workflow=data).all()
         interest = Interest.objects.filter(user_interest=data).all()
