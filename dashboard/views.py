@@ -597,3 +597,8 @@ def error_404_view(request, exception):
 def error_500_view(request, *args, **argv):
     templates = 'dashboard/500.html'
     return render(request, templates)
+
+
+def home(request):
+    templates = 'dashboard/home.html'
+    return render(request, templates)

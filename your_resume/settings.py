@@ -23,7 +23,7 @@ AUTH_USER_MODEL = 'accounts.Profile'
 SECRET_KEY = '1oo#s@*f-&0wysnz_bgw5)-xt2=&-pxg6&m74vfk+2kl*o%r_l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com', 'localhost', 'projectflask.tech', '18.219.215.17']
 
