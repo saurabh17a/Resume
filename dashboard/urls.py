@@ -35,7 +35,6 @@ urlpatterns = [
     path('update/interest/<int:id>', views.update_interest, name='update_interest'),
     path('delete/interest/<int:id>', views.delete_interest, name='delete_interest'),
     path('', views.all_resume, name='all_resume'),
-    # path('', views.home, name='home'),
     path('all_resume/<int:id>', views.delete_resume, name='delete_resume'),
     path('viewresume/<int:id>', views.user_resume, name='user_resume'),
     path('updateresume/<int:id>', views.update_details, name='update_details'),
