@@ -157,7 +157,7 @@ def list_experience(request, id):
     if user_data.user == request.user:
         experiences = Experience.objects.filter(user_experience=user_data).all()
         return render(
-            request, 'dashboard/experience_list.html',
+            request, 'dashboard/add_details.html',
             {'experiences': experiences, 'user_data': user_data})
     else:
         return redirect('dashboard:all_resume')
@@ -262,6 +262,8 @@ def delete_education(request, id=None):
 
 @login_required(login_url="/accounts/login/")
 def create_skills(request, id):
+    # import pdb
+    # pdb.set_trace()
     user_data = UserData.objects.get(id=id)
     if user_data.user == request.user:
         if request.method == 'POST':
