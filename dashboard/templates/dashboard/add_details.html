@@ -26,7 +26,6 @@
     <a  class="btn btn-sm btn-success pull-right" method="post" href="{% url 'dashboard:create_experience' user_data_id %}">Add Experience</a>
     <a  class="btn btn-sm btn-success pull-right" method="post" href="{% url 'dashboard:list_experience' user_data_id %}">View Experience</a>
   </div>
-  {{experiences}}
     {% for experience in experiences %}
         <div class="card" style="width: 60rem; margin-top:15px; margin-left:3rem">
             <div class="card-body">
