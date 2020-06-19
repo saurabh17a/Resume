@@ -50,12 +50,15 @@ def create_info(request):
 @login_required(login_url="/accounts/login/")
 def add_details(request, id):
     user_data = UserData.objects.get(id=id)
+
+    experiences = Experience.objects.filter(user_experience=user_data).all()
     if request.user == user_data.user:
         user_data_id = user_data.id
-        context = {'user_data_id': user_data_id, 'user_data': user_data}
+        context = {'user_data_id': user_data_id, 'user_data': user_data, 'experiences': experiences}
         return render(request, 'dashboard/add_details.html', context=context)
     else:
         return redirect('dashboard:all_resume')
+
 
 @login_required(login_url="/accounts/login/")
 def update_details(request, id=None):
