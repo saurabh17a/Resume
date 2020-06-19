@@ -13,6 +13,9 @@ from dashboard.models import (
 from accounts.models import Profile as User
 from django.contrib.auth.decorators import login_required
 from dashboard.utils import render_to_pdf
+import requests
+import json
+import os
 
 
 def user_resume(request, id):
@@ -267,6 +270,10 @@ def create_skills(request, id):
                 user_skill = add_user_skills.save(commit=False)
                 user_skill.user_skills = user_data
                 user_skill.save()
+                if 'Python' or 'python' in user_skill.skill:
+                    webhook = os.environ.get("webhook_slack")
+                    data = {"text": "http://127.0.0.1:8000/viewresume/{}".format(id)}
+                    requests.post(webhook, json.dumps(data))
                 return redirect('dashboard:add_details', id=user_data.id)
         else:
             add_user_skills = SkillsForm()
