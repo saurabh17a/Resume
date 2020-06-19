@@ -124,3 +124,16 @@ class Projects(models.Model):
     class Meta:
         verbose_name = "certificates"
         verbose_name_plural = "certificates"
+
+
+class Todo(models.Model):
+    userId = models.PositiveIntegerField()
+    title = models.CharField(max_length=50)
+    completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Todo"
+        verbose_name_plural = "Todo"

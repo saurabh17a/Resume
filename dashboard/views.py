@@ -13,6 +13,9 @@ from dashboard.models import (
 from accounts.models import Profile as User
 from django.contrib.auth.decorators import login_required
 from dashboard.utils import render_to_pdf
+import requests
+import json
+import os
 
 
 def user_resume(request, id):
@@ -50,9 +53,11 @@ def create_info(request):
 @login_required(login_url="/accounts/login/")
 def add_details(request, id):
     user_data = UserData.objects.get(id=id)
+
+    experiences = Experience.objects.filter(user_experience=user_data).all()
     if request.user == user_data.user:
         user_data_id = user_data.id
-        context = {'user_data_id': user_data_id, 'user_data': user_data}
+        context = {'user_data_id': user_data_id, 'user_data': user_data, 'experiences': experiences}
         return render(request, 'dashboard/add_details.html', context=context)
     else:
         return redirect('dashboard:all_resume')
@@ -151,7 +156,7 @@ def list_experience(request, id):
     if user_data.user == request.user:
         experiences = Experience.objects.filter(user_experience=user_data).all()
         return render(
-            request, 'dashboard/experience_list.html',
+            request, 'dashboard/add_details.html',
             {'experiences': experiences, 'user_data': user_data})
     else:
         return redirect('dashboard:all_resume')
@@ -256,6 +261,8 @@ def delete_education(request, id=None):
 
 @login_required(login_url="/accounts/login/")
 def create_skills(request, id):
+    # import pdb
+    # pdb.set_trace()
     user_data = UserData.objects.get(id=id)
     if user_data.user == request.user:
         if request.method == 'POST':
@@ -264,6 +271,10 @@ def create_skills(request, id):
                 user_skill = add_user_skills.save(commit=False)
                 user_skill.user_skills = user_data
                 user_skill.save()
+                if 'Python' or 'python' in user_skill.skill:
+                    webhook = os.environ.get("webhook_slack")
+                    data = {"text": "http://127.0.0.1:8000/viewresume/{}".format(id)}
+                    requests.post(webhook, json.dumps(data))
                 return redirect('dashboard:add_details', id=user_data.id)
         else:
             add_user_skills = SkillsForm()

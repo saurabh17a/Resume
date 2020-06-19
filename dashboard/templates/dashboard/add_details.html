@@ -26,6 +26,21 @@
     <a  class="btn btn-sm btn-success pull-right" method="post" href="{% url 'dashboard:create_experience' user_data_id %}">Add Experience</a>
     <a  class="btn btn-sm btn-success pull-right" method="post" href="{% url 'dashboard:list_experience' user_data_id %}">View Experience</a>
   </div>
+  {{experiences}}
+    {% for experience in experiences %}
+        <div class="card" style="width: 60rem; margin-top:15px; margin-left:3rem">
+            <div class="card-body">
+                <h5 class="card-title">{{ experience.name }}</h5>
+            <div>
+                <p class="card-text">{{ experience.position }}</p>
+            </div>
+            <div>
+            <a class="btn btn-sm btn-info " href="{% url 'dashboard:update_experience' experience.id %}">Update Experience</a>
+            <a class="btn btn-sm btn-danger" style="float:right;" href="{% url 'dashboard:delete_experience' experience.id %}">Delete Experience</a>
+            </div>
+            </div>
+        </div>
+    {% endfor %}
 </div>
 <div class="card" style="margin-top:12px">
   <div class="card-header">
