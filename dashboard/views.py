@@ -27,7 +27,7 @@ def user_resume(request, id):
     interest = Interest.objects.filter(user_interest=data).all()
     award = Certificate.objects.filter(user_certificates=data).all()
     project = Projects.objects.filter(user_project=data).all()
-    context = {'data': data, 'award': award, 'project': project, 'experience': experience,'interest':interest, 'education': education, 'skills':skills, 'workflow':workflow}
+    context = {'data': data, 'award': award, 'project': project, 'experience': experience,'interest': interest, 'education': education, 'skills':skills, 'workflow':workflow}
     return render(request, 'dashboard/view_resume.html', context=context)
 
 
@@ -262,8 +262,6 @@ def delete_education(request, id=None):
 
 @login_required(login_url="/accounts/login/")
 def create_skills(request, id):
-    # import pdb
-    # pdb.set_trace()
     user_data = UserData.objects.get(id=id)
     if user_data.user == request.user:
         if request.method == 'POST':
@@ -596,7 +594,7 @@ class GeneratePDF(View):
         interest = Interest.objects.filter(user_interest=data).all()
         award = Certificate.objects.filter(user_certificates=data).all()
         project = Projects.objects.filter(user_project=data).all()
-        context = {'data': data, 'award': award, 'project': project, 'experience': experience,'interest':interest, 'education': education, 'skills':skills, 'workflow':workflow}
+        context = {'data': data, 'award': award, 'project': project, 'experience': experience,'interest': interest, 'education': education, 'skills':skills, 'workflow':workflow}
         pdf = render_to_pdf('dashboard/resume.html', context)
         return HttpResponse(pdf, content_type='application/pdf')
 
